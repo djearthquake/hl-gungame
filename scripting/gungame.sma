@@ -712,8 +712,8 @@ public plugin_precache(){
 public plugin_init(){
 	register_cvar("gungame", VERSION, FCVAR_SERVER | FCVAR_SPONLY | FCVAR_UNLOGGED)
 	g_mp_trick = get_cvar_pointer("mp_maxrounds") ? get_cvar_pointer("mp_maxrounds") : register_cvar("mp_maxrounds","1")
-	if(get_pcvar_num(g_mp_trick) < 2)
-		set_pcvar_num(g_mp_trick,20) //otherwise mapchooser will vote immediately on new map starts if 1337 doesn't bind!
+	if ( !cstrike_running() || (is_running("dod") != 1)  )
+		set_pcvar_num(g_mp_trick,0) //otherwise mapchooser be askew.
 	register_dictionary("gungame.txt")
 }
 
