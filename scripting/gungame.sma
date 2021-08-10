@@ -711,9 +711,9 @@ public plugin_precache(){
 
 public plugin_init(){
 	register_cvar("gungame", VERSION, FCVAR_SERVER | FCVAR_SPONLY | FCVAR_UNLOGGED)
-	g_mp_trick = get_cvar_pointer("mp_maxrounds") ? get_cvar_pointer("mp_maxrounds") : register_cvar("mp_maxrounds","0")
+	g_mp_trick = get_cvar_pointer("mp_maxrounds") ? get_cvar_pointer("mp_maxrounds") : register_cvar("mp_maxrounds","")
 	if ( !cstrike_running() || (is_running("dod") != 1)  )
-		set_pcvar_num(g_mp_trick,0) //otherwise mapchooser be askew.
+		set_pcvar_string(g_mp_trick,"") //RTV push. Mods without rounds go back to mapcycle regardless of vote outcomes.
 	register_dictionary("gungame.txt")
 }
 
@@ -3668,8 +3668,7 @@ public start_map_vote(Float:delay){
 				if(delay)
 					set_task(delay,"goto_nextmap")
 			}
-
-			set_cvar_num("mp_maxrounds",1337) // i dont know how to deregister it :p
+			set_cvar_string("mp_maxrounds","")
 
 			if(delay)
 				set_task(15.1,"goto_nextmap") // amxx default vote time
